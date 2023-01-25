@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "480880931433",
+    "project_id": "be-energised",
+    "storage_bucket": "be-energised.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480880931433:android:6f642f93d4faad4928a8f8",
+        "android_client_info": {
+          "package_name": "com.example.be_energised"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480880931433-rgc7hosfhvbub3quudmgrhmfst8cd1sh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPwEwz8ZmAXq_2e0f6W-b_oYH_tx0-9OY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480880931433-rgc7hosfhvbub3quudmgrhmfst8cd1sh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "480880931433-apqfhqdd1a52jhhl6fge4r7t32f08l7j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tadyuh.beEnergised"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480880931433:android:dc234a68a9e3355728a8f8",
+        "android_client_info": {
+          "package_name": "com.tadyuh.beEnergised"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480880931433-rgc7hosfhvbub3quudmgrhmfst8cd1sh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPwEwz8ZmAXq_2e0f6W-b_oYH_tx0-9OY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480880931433-rgc7hosfhvbub3quudmgrhmfst8cd1sh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "480880931433-apqfhqdd1a52jhhl6fge4r7t32f08l7j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tadyuh.beEnergised"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Be Energised</string>
+  <string name="facebook_app_id">1195808984362978</string>
+  <string name="facebook_client_token">07087b8561bd5c706da2f92aa6d6fea7</string>
+  <string name="fb_login_protocol_scheme">fb07087b8561bd5c706da2f92aa6d6fea7</string>
+</resources>
