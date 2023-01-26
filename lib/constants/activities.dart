@@ -1,0 +1,22 @@
+const activities = [
+  "badminton",
+  "basketball",
+  "chat-box",
+  "chess",
+  "clapperboard",
+  "cleats",
+  "cycling",
+  "dumbbell",
+  "guitar",
+  "hockey",
+  "hot-coffee",
+  "keyboard",
+  "martial-arts",
+  "microphone",
+  "pc",
+  "programming",
+  "shopping-cart",
+  "suitcase",
+  "table-tennis",
+  "tennis"
+];

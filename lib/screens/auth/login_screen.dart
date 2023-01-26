@@ -1,9 +1,8 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:be_energised/constants/palette.dart';
-import 'package:be_energised/controllers/auth_controller.dart';
+import 'package:be_energised/screens/auth/widgets/facebook_login_button.dart';
 import 'package:be_energised/widgets/background.dart';
-import 'package:be_energised/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -13,13 +12,21 @@ class LoginScreen extends StatelessWidget {
     return Background(
       name: "home",
       child: Scaffold(
-        appBar: const PreferredSize(
-          preferredSize: Size(double.infinity, 120),
-          child: CustomAppBar(),
-        ),
         body: SizedBox.expand(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              AvatarGlow(
+                duration: const Duration(seconds: 2),
+                animate: true,
+                glowColor: Palette.green,
+                endRadius: 120,
+                child: Image.asset(
+                  "assets/icons/battery.png",
+                  width: 120,
+                  height: 120,
+                ),
+              ),
               const Text(
                 "Be Energised!",
                 style: TextStyle(
@@ -28,27 +35,8 @@ class LoginScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 40),
-              Consumer(builder: (context, ref, _) {
-                return GestureDetector(
-                  onTap: () => ref
-                      .read(authControllerProvider.notifier)
-                      .signInWithFb(context),
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: const BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.all(Radius.circular(100)),
-                    ),
-                    child: const Icon(
-                      Icons.facebook_rounded,
-                      color: Palette.white,
-                      size: 64,
-                    ),
-                  ),
-                );
-              })
+              const SizedBox(height: 120),
+              const FacebookLoginButton()
             ],
           ),
         ),

@@ -26,6 +26,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "avatar_glow",
+      "rootUri": "file:///home/huy/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/avatar_glow-2.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "boolean_selector",
       "rootUri": "file:///home/huy/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.0",
       "packageUri": "lib/",
@@ -416,7 +422,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-01-25T14:26:28.434981Z",
+  "generated": "2023-01-26T01:12:55.207578Z",
   "generator": "pub",
   "generatorVersion": "2.18.6"
 }

@@ -1,8 +1,11 @@
+import 'package:be_energised/constants/activities.dart';
 import 'package:be_energised/constants/constants.dart';
 import 'package:be_energised/constants/palette.dart';
+import 'package:be_energised/controllers/activity_list_controller.dart';
 import 'package:be_energised/screens/battery/widgets/activity_widget.dart';
 import 'package:be_energised/screens/statistics/statistics_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 class BatteryBottomSheet extends StatelessWidget {
@@ -81,14 +84,26 @@ class BatteryBottomSheet extends StatelessWidget {
                 const SizedBox(height: Const.defaultPadding),
                 _renderHeader(context),
                 const SizedBox(height: Const.defaultPadding),
-                ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 6,
-                  itemBuilder: (context, index) {
-                    return const ActivityWidget();
+                Consumer(
+                  builder: (context, ref, _) {
+                    return ref.watch(activityListControllerProvider).when(
+                          data: (activityList) => ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: activityList.length,
+                            itemBuilder: (context, index) {
+                              return ActivityWidget(
+                                activity: activityList[index],
+                              );
+                            },
+                          ),
+                          error: (e, st) => Text(e.toString()),
+                          loading: () => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
                   },
-                )
+                ),
               ],
             ),
           ),

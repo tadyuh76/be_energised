@@ -23,6 +23,7 @@ class FriendCard extends StatelessWidget {
           const CircleAvatar(
             radius: 30,
             backgroundImage: AssetImage("assets/avatar.jpg"),
+            backgroundColor: Palette.green,
           ),
           const SizedBox(width: Const.defaultPadding),
           Expanded(

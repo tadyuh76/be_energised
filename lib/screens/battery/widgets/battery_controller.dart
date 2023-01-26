@@ -3,9 +3,15 @@ import 'package:be_energised/widgets/gradient_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class BatteryController extends StatelessWidget {
+class BatteryInfo extends StatelessWidget {
   final int percentage;
-  const BatteryController({super.key, required this.percentage});
+  const BatteryInfo({super.key, required this.percentage});
+
+  Gradient get gradient => percentage > 50
+      ? Palette.greenGradient
+      : percentage > 20
+          ? Palette.yellowGradient
+          : Palette.redGradient;
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +38,17 @@ class BatteryController extends StatelessWidget {
                     children: [
                       GradientText(
                         text: percentage.toString(),
-                        gradient: Palette.greenGradient,
+                        gradient: gradient,
                         style: const TextStyle(fontSize: 20),
                       ),
-                      const GradientText(
+                      GradientText(
                         text: "%",
-                        gradient: Palette.greenGradient,
-                        style: TextStyle(
-                          color: Palette.green,
-                          fontSize: 10,
-                        ),
+                        gradient: percentage > 50
+                            ? Palette.greenGradient
+                            : percentage > 20
+                                ? Palette.yellowGradient
+                                : Palette.redGradient,
+                        style: const TextStyle(fontSize: 10),
                       ),
                     ],
                   ),
@@ -60,6 +67,7 @@ class BatteryController extends StatelessWidget {
             "assets/icons/pointer.png",
             width: 15,
             height: 15,
+            color: Palette.lightGrey,
           ),
         ],
       ),

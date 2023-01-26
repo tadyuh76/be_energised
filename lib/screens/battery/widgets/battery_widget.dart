@@ -1,13 +1,15 @@
 import 'package:be_energised/constants/palette.dart';
+import 'package:be_energised/controllers/battery_controller.dart';
+import 'package:be_energised/screens/battery/widgets/activity_panel.dart';
 import 'package:be_energised/screens/battery/widgets/battery_controller.dart';
 import 'package:be_energised/utils/percentage_to_cells.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BatteryWidget extends StatelessWidget {
-  const BatteryWidget({super.key, required this.percentage});
-  final int percentage;
+class BatteryWidget extends ConsumerWidget {
+  const BatteryWidget({super.key});
 
-  List<Widget> _renderBatteryCells() {
+  List<Widget> _renderBatteryCells(int percentage) {
     final batteryCells = percentageToCells(percentage);
 
     return batteryCells.reversed.map((cellValue) {
@@ -16,76 +18,72 @@ class BatteryWidget extends StatelessWidget {
       return Container(
         width: double.infinity,
         height: cellValue / 20 * 50,
-        decoration: const BoxDecoration(
-          gradient: Palette.greenGradient,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+        decoration: BoxDecoration(
+          gradient: percentage > 50
+              ? Palette.greenGradient
+              : percentage > 20
+                  ? Palette.yellowGradient
+                  : Palette.redGradient,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
       );
     }).toList();
   }
 
+  void _displayActivityPanel(BuildContext context) {
+    ActivityPanel.show(context);
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 100,
-          height: 40,
-          decoration: BoxDecoration(
-            color: Palette.grey.withOpacity(0.8),
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(20),
-              bottom: Radius.circular(5),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ref.watch(batteryControllerProvider).when(
+          error: (error, stackTrace) => Text(error.toString()),
+          loading: () => const Center(child: CircularProgressIndicator()),
+          data: (battery) => GestureDetector(
+            onTap: () => _displayActivityPanel(context),
+            child: Column(
+              children: [
+                Container(
+                  width: 100,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Palette.grey.withOpacity(0.8),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(20),
+                      bottom: Radius.circular(5),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  height: 330,
+                  width: 200,
+                  padding: const EdgeInsets.all(20),
+                  alignment: Alignment.bottomCenter,
+                  decoration: BoxDecoration(
+                    color: Palette.grey.withOpacity(0.8),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: _renderBatteryCells(battery.percentage),
+                      ),
+                      Positioned(
+                        top: -25,
+                        left: -80,
+                        child: BatteryInfo(percentage: battery.percentage),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
-        SizedBox(
-          width: 300,
-          height: 345,
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Container(
-                height: 330,
-                width: 200,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Palette.grey.withOpacity(0.8),
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                ),
-                alignment: Alignment.bottomCenter,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        BatteryController(percentage: percentage),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: SizedBox(
-                            width: 160,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 25),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: _renderBatteryCells(),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+        );
   }
 }

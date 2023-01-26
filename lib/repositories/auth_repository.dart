@@ -9,8 +9,7 @@ class AuthRepository {
   final Ref ref;
   const AuthRepository(this.ref);
 
-  Stream<User?> get authStateChanges =>
-      ref.read(authProvider).authStateChanges();
+  Stream<User?> get userChanges => ref.read(authProvider).userChanges();
 
   Future<void> signOut() async {
     try {

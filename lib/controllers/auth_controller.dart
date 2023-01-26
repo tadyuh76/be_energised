@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:be_energised/repositories/auth_repository.dart';
 import 'package:be_energised/repositories/fb_auth_repository.dart';
+import 'package:be_energised/screens/home/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,19 +12,19 @@ final authControllerProvider =
 
 class AuthController extends StateNotifier<User?> {
   final Ref ref;
-  StreamSubscription<User?>? _authStateChangesSubscription;
+  StreamSubscription<User?>? _userChangesSubscription;
 
   AuthController(this.ref) : super(null) {
-    _authStateChangesSubscription?.cancel();
-    _authStateChangesSubscription = ref
-        .read(authRepositoryProvider)
-        .authStateChanges
+    _userChangesSubscription?.cancel();
+    _userChangesSubscription = ref
+        .watch(authRepositoryProvider)
+        .userChanges
         .listen((user) => state = user);
   }
 
   @override
   void dispose() {
-    _authStateChangesSubscription?.cancel();
+    _userChangesSubscription?.cancel();
     super.dispose();
   }
 
@@ -31,8 +32,8 @@ class AuthController extends StateNotifier<User?> {
     ref.read(fbAuthRepository).signIn(context);
   }
 
-  void signOut(BuildContext context) {
+  Future<void> signOut(BuildContext context) async {
+    Navigator.of(context).popUntil(ModalRoute.withName(HomeScreen.routeName));
     ref.read(authRepositoryProvider).signOut();
-    Navigator.of(context).pop();
   }
 }

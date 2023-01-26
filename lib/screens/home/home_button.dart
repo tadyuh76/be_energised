@@ -1,3 +1,4 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:be_energised/constants/palette.dart';
 import "package:flutter/material.dart";
 
@@ -19,19 +20,22 @@ class HomeButton extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            width: 140,
-            height: 140,
-            clipBehavior: Clip.hardEdge,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(100)),
-              color: Palette.white,
-            ),
-            alignment: Alignment.center,
-            child: Image.asset(
-              "assets/icons/$iconName.png",
-              width: 90,
-              height: 90,
+          AvatarGlow(
+            endRadius: 70,
+            child: Container(
+              width: 140,
+              height: 140,
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(100)),
+                color: Palette.green.withOpacity(0.3),
+              ),
+              alignment: Alignment.center,
+              child: Image.asset(
+                "assets/icons/$iconName.png",
+                width: 90,
+                height: 90,
+              ),
             ),
           ),
           const SizedBox(height: 10),

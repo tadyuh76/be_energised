@@ -7,7 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CustomAppBar extends ConsumerWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
+  final bool home;
+  const CustomAppBar({Key? key, this.home = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,28 +24,46 @@ class CustomAppBar extends ConsumerWidget {
         padding: const EdgeInsets.all(Const.defaultPadding),
         child: Row(
           children: [
-            GestureDetector(
-              onTap: Navigator.of(context).pop,
-              child: Container(
-                width: 60,
-                height: 60,
-                decoration: const BoxDecoration(
-                  color: Palette.background,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                alignment: Alignment.center,
-                child: SvgPicture.asset(
-                  "assets/icons/back.svg",
-                  width: 32,
-                  height: 32,
-                  color: Palette.lightGrey,
-                ),
-              ),
-            ),
+            if (home)
+              _renderSettingsButton(context)
+            else
+              _renderBackButton(context),
             const Spacer(),
             if (user != null) Avatar(user: user),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _renderBackButton(BuildContext context) {
+    return GestureDetector(
+      onTap: Navigator.of(context).pop,
+      child: Container(
+        width: 60,
+        height: 60,
+        decoration: const BoxDecoration(
+          color: Palette.background,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        alignment: Alignment.center,
+        child: SvgPicture.asset(
+          "assets/icons/back.svg",
+          width: 32,
+          height: 32,
+          color: Palette.lightGrey,
+        ),
+      ),
+    );
+  }
+
+  Widget _renderSettingsButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () {},
+      child: SvgPicture.asset(
+        "assets/icons/settings.svg",
+        width: 60,
+        height: 60,
       ),
     );
   }

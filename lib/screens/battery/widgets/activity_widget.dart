@@ -1,9 +1,12 @@
 import 'package:be_energised/constants/constants.dart';
 import 'package:be_energised/constants/palette.dart';
+import 'package:be_energised/models/activity.dart';
 import 'package:flutter/material.dart';
+import 'package:be_energised/utils/date_format.dart';
 
 class ActivityWidget extends StatelessWidget {
-  const ActivityWidget({super.key});
+  final Activity activity;
+  const ActivityWidget({super.key, required this.activity});
 
   @override
   Widget build(BuildContext context) {
@@ -18,21 +21,22 @@ class ActivityWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const CircleAvatar(
+          CircleAvatar(
             radius: 30,
-            backgroundImage: AssetImage("assets/activity_icons/football.png"),
+            backgroundImage:
+                AssetImage("assets/activity_icons/${activity.icon}.png"),
           ),
           const SizedBox(width: Const.defaultPadding),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                "Running",
-                style: TextStyle(color: Palette.lightGrey, fontSize: 16),
+              Text(
+                activity.name,
+                style: const TextStyle(color: Palette.lightGrey, fontSize: 16),
               ),
               Text(
-                "100% -> 90% - 9:01 Today",
+                "${activity.prevPercentage}% -> ${activity.curPercentage}% - ${getTime(DateTime.parse(activity.time))} Today",
                 style: TextStyle(
                   color: Palette.lightGrey.withOpacity(0.5),
                   fontSize: 12,

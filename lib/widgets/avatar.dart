@@ -22,6 +22,7 @@ class Avatar extends StatelessWidget {
         child: CircleAvatar(
           radius: 26,
           backgroundImage: NetworkImage(user.photoURL!),
+          backgroundColor: Palette.green,
         ),
       ),
     );

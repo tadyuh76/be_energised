@@ -17,6 +17,10 @@ class UserInfoDialog extends StatelessWidget {
     );
   }
 
+  Future<void> onLogOut(BuildContext context, Ref ref, [mounted = true]) async {
+    ;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -31,7 +35,7 @@ class UserInfoDialog extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
@@ -59,7 +63,7 @@ class UserInfoDialog extends StatelessWidget {
                       .signOut(context),
                   child: Container(
                     height: 40,
-                    width: 160,
+                    width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                       border: Border.all(

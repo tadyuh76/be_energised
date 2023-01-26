@@ -1,3 +1,6 @@
+import 'package:be_energised/controllers/auth_controller.dart';
+import 'package:be_energised/repositories/battery_repository.dart';
+import 'package:be_energised/repositories/firestore_repository.dart';
 import 'package:be_energised/repositories/general_providers.dart';
 import 'package:be_energised/utils/show_snack_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +15,17 @@ class FbAuthRepository {
   final Ref ref;
   const FbAuthRepository(this.ref);
 
+  Future<void> updateUserPhotoURL(UserCredential cred) async {
+    try {
+      final String fbPhotoURL =
+          cred.additionalUserInfo!.profile!["picture"]["data"]["url"];
+      await cred.user!.updatePhotoURL(fbPhotoURL);
+      await cred.user!.reload();
+    } on FirebaseException catch (e) {
+      print("[updateUserPhotoURL]: $e");
+    }
+  }
+
   Future<void> signIn(BuildContext context) async {
     try {
       final LoginResult loginResult = await FacebookAuth.instance.login();
@@ -19,9 +33,17 @@ class FbAuthRepository {
 
       final OAuthCredential fbAuthCredential =
           FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
       final cred =
           await ref.read(authProvider).signInWithCredential(fbAuthCredential);
-      print("[signed in successfully]: ${cred.additionalUserInfo?.profile}");
+      if (cred.user == null) return;
+
+      if (cred.additionalUserInfo!.isNewUser) {
+        await updateUserPhotoURL(cred);
+        final updatedUser = ref.read(authControllerProvider)!;
+        await ref.read(firestoreRepositoryProvider).addUserToDB(updatedUser);
+        await ref.read(batteryRepositoryProvider).createBattery(updatedUser);
+      }
     } on FirebaseException catch (e) {
       showSnackBar(context, e.toString());
     }

@@ -15,7 +15,7 @@ class BatteryScreen extends StatelessWidget {
     return Background(
       name: "battery",
       child: Scaffold(
-        extendBodyBehindAppBar: false,
+        resizeToAvoidBottomInset: false,
         appBar: const PreferredSize(
           preferredSize: Size(double.infinity, 120),
           child: CustomAppBar(),
@@ -36,7 +36,7 @@ class BatteryScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: Const.defaultPadding),
-                  BatteryWidget(percentage: 76),
+                  BatteryWidget(),
                   SizedBox(height: 30),
                 ],
               ),
