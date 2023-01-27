@@ -52,7 +52,7 @@ class FbAuthRepository {
       if (cred.additionalUserInfo!.isNewUser) {
         if (cred.user!.email == null) {
           print("null email");
-          await cred.user!.updateEmail("unknown@gmail.com");
+          await cred.user!.updateEmail("${cred.user!.uid}@gmail.com");
           await cred.user!.reload();
           print(cred.user);
         }

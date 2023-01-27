@@ -41,8 +41,9 @@ class UserInfoDialog extends StatelessWidget {
                   fontSize: 18,
                 ),
               ),
+              const SizedBox(height: 4),
               Text(
-                user.email!,
+                user.email ?? "Unknown",
                 style: TextStyle(
                   color: Palette.lightGrey.withOpacity(0.8),
                   fontSize: 14,

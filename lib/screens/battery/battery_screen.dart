@@ -1,6 +1,7 @@
 import 'package:be_energised/constants/constants.dart';
 import 'package:be_energised/constants/palette.dart';
 import 'package:be_energised/controllers/auth_controller.dart';
+import 'package:be_energised/controllers/battery_controller.dart';
 import 'package:be_energised/screens/battery/widgets/battery_bottom_sheet.dart';
 import 'package:be_energised/screens/battery/widgets/battery_widget.dart';
 import 'package:be_energised/widgets/background.dart';
@@ -34,7 +35,7 @@ class BatteryScreen extends StatelessWidget {
                 children: [
                   Consumer(builder: (context, ref, _) {
                     final displayName =
-                        ref.read(authControllerProvider)!.displayName;
+                        ref.read(batteryControllerProvider).value!.displayName;
                     return Text(
                       "$displayName's Battery",
                       style: const TextStyle(
