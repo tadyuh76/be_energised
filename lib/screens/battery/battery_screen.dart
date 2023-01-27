@@ -35,9 +35,9 @@ class BatteryScreen extends StatelessWidget {
                 children: [
                   Consumer(builder: (context, ref, _) {
                     final displayName =
-                        ref.read(batteryControllerProvider).value!.displayName;
+                        ref.watch(batteryControllerProvider).value?.displayName;
                     return Text(
-                      "$displayName's Battery",
+                      "${displayName ?? "My"}'s Battery",
                       style: const TextStyle(
                         fontSize: 24,
                         color: Palette.lightGrey,

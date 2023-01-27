@@ -34,7 +34,11 @@ class ActivityController extends StateNotifier<AsyncValue<List<Activity>>> {
   }
 
   void addActivity(Activity activity) {
-    if (mounted) state = AsyncData([...state.value!, activity]);
+    if (mounted) {
+      final newList = [...state.value!, activity];
+      state = AsyncData(newList);
+      ref.read(savedActivityListProvider.notifier).saveList(newList);
+    }
   }
 
   void updateList(List<Activity> list) => state = AsyncData(list);

@@ -54,6 +54,8 @@ class BatteryController extends StateNotifier<AsyncValue<Battery>> {
       await ref.read(batteryRepositoryProvider).updateBattery(uid!, newBattery);
       await ref.read(activityRepositoryProvider).createActivity(uid!, activity);
       ref.read(activityListControllerProvider.notifier).addActivity(activity);
+
+      ref.read(savedBatteryProvider.notifier).saveBattery(newBattery);
       state = AsyncData(newBattery);
     } catch (e, st) {
       state = AsyncError(e, st);
