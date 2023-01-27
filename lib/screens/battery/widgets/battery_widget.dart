@@ -12,6 +12,7 @@ class BatteryWidget extends ConsumerWidget {
   List<Widget> _renderBatteryCells(int percentage) {
     final batteryCells = percentageToCells(percentage);
 
+    if (batteryCells.isEmpty) return [const SizedBox(width: double.infinity)];
     return batteryCells.reversed.map((cellValue) {
       if (cellValue == -1) return const SizedBox(height: 10);
 

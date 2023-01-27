@@ -22,9 +22,6 @@ class HomeButton extends ConsumerWidget {
     if (iconName == "battery") {
       ref.read(batteryControllerProvider.notifier).refresh();
       ref.read(activityListControllerProvider.notifier).refresh();
-
-      print(ref.read(savedBatteryProvider));
-      print(ref.read(savedActivityListProvider));
     }
     onTap();
   }

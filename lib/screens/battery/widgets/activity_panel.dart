@@ -35,7 +35,11 @@ class _ActivityPanelState extends State<ActivityPanel> {
   }
 
   void onSubmit(WidgetRef ref) async {
-    if (_nameController.text.isEmpty || _percentController.text.isEmpty) return;
+    FocusManager.instance.primaryFocus!.unfocus();
+    if (_nameController.text.isEmpty || _percentController.text.isEmpty) {
+      showSnackBar(context, "All fields must not be empty.");
+      return;
+    }
 
     final name = _nameController.text;
     final curPercentage = int.parse(_percentController.text);
@@ -45,7 +49,7 @@ class _ActivityPanelState extends State<ActivityPanel> {
     if (curPercentage >= prevPercentage) {
       showSnackBar(
         context,
-        "How can you charge your energy by $name ? Make sure your new energy is smaller than your current energy!",
+        "Your new battery level must smaller than your current.",
       );
       return;
     }
@@ -314,7 +318,7 @@ class _PercentInput extends StatelessWidget {
           ),
           const Text(
             " %",
-            style: TextStyle(color: Palette.lightGrey, fontSize: 18),
+            style: TextStyle(color: Palette.lightGrey, fontSize: 14),
           )
         ],
       );

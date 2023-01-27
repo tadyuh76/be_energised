@@ -1,4 +1,6 @@
 List<int> percentageToCells(int percentage) {
+  if (percentage == 0) return [];
+
   int remainBattery = percentage;
   List<int> batteryCells = [];
 

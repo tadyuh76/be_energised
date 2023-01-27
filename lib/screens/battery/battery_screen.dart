@@ -1,10 +1,12 @@
 import 'package:be_energised/constants/constants.dart';
 import 'package:be_energised/constants/palette.dart';
+import 'package:be_energised/controllers/auth_controller.dart';
 import 'package:be_energised/screens/battery/widgets/battery_bottom_sheet.dart';
 import 'package:be_energised/screens/battery/widgets/battery_widget.dart';
 import 'package:be_energised/widgets/background.dart';
 import 'package:be_energised/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BatteryScreen extends StatelessWidget {
   static const routeName = "/battery";
@@ -30,13 +32,17 @@ class BatteryScreen extends StatelessWidget {
               height: double.infinity,
               child: Column(
                 children: [
-                  const Text(
-                    "My Battery",
-                    style: TextStyle(
-                      fontSize: 32,
-                      color: Palette.lightGrey,
-                    ),
-                  ),
+                  Consumer(builder: (context, ref, _) {
+                    final displayName =
+                        ref.read(authControllerProvider)!.displayName;
+                    return Text(
+                      "$displayName's Battery",
+                      style: const TextStyle(
+                        fontSize: 24,
+                        color: Palette.lightGrey,
+                      ),
+                    );
+                  }),
                   const SizedBox(height: Const.defaultPadding),
                   IgnorePointer(
                     ignoring: readOnly,
