@@ -34,6 +34,7 @@ class ActivityWidget extends StatelessWidget {
                 activity.name,
                 style: const TextStyle(color: Palette.lightGrey, fontSize: 16),
               ),
+              const SizedBox(height: 6),
               Text(
                 "${activity.prevPercentage}% -> ${activity.curPercentage}% - ${activity.time} Today",
                 style: TextStyle(
