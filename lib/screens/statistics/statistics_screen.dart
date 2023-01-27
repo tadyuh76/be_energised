@@ -18,8 +18,8 @@ class StatisticsScreen extends StatelessWidget {
         ),
         body: SizedBox.expand(
           child: Column(
-            children: [
-              const Text(
+            children: const [
+              Text(
                 "My Statistics",
                 style: TextStyle(color: Palette.lightGrey, fontSize: 32),
               )

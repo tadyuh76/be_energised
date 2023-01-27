@@ -1,5 +1,6 @@
 import 'package:be_energised/controllers/activity_list_controller.dart';
 import 'package:be_energised/controllers/auth_controller.dart';
+import 'package:be_energised/helpers/saved_battery_provider.dart';
 import 'package:be_energised/models/activity.dart';
 import 'package:be_energised/models/battery.dart';
 import 'package:be_energised/repositories/activity_repository.dart';
@@ -23,11 +24,18 @@ class BatteryController extends StateNotifier<AsyncValue<Battery>> {
     try {
       final batteryRepo = ref.read(batteryRepositoryProvider);
       final battery = await batteryRepo.getUserBattery(uid!);
-      if (mounted) state = AsyncData(battery);
+      if (mounted) {
+        state = AsyncData(battery);
+        ref.read(savedBatteryProvider.notifier).saveBattery(battery);
+      }
     } catch (e, st) {
       state = AsyncError(e, st);
       print("[getBattery]: $e");
     }
+  }
+
+  void updateBattery(Battery battery) {
+    state = AsyncData(battery);
   }
 
   Future<void> createActivity(
@@ -51,5 +59,12 @@ class BatteryController extends StateNotifier<AsyncValue<Battery>> {
       state = AsyncError(e, st);
       print("[createActivity]: $e");
     }
+  }
+
+  void refresh() {
+    final savedBattery = ref.read(savedBatteryProvider);
+    if (savedBattery == Battery.empty()) return;
+
+    state = AsyncData(savedBattery);
   }
 }

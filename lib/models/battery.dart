@@ -17,6 +17,16 @@ class Battery {
     this.friendEnergy,
   });
 
+  factory Battery.empty() {
+    return Battery(
+      displayName: "",
+      photoURL: "",
+      percentage: 0,
+      totalEnergy: 0,
+      date: "",
+    );
+  }
+
   factory Battery.newUser({
     required uid,
     required displayName,

@@ -1,10 +1,10 @@
 class Activity {
   String date;
+  String time;
   String name;
   String icon;
   int prevPercentage;
   int curPercentage;
-  String time;
 
   Activity({
     required this.date,

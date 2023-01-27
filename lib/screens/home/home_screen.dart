@@ -5,14 +5,13 @@ import 'package:be_energised/screens/home/home_button.dart';
 import 'package:be_energised/widgets/background.dart';
 import 'package:be_energised/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends StatelessWidget {
   static const routeName = "/home";
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Background(
       name: "home",
       child: Scaffold(

@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:be_energised/helpers/auth_control_helper.dart';
 import 'package:be_energised/repositories/auth_repository.dart';
 import 'package:be_energised/repositories/fb_auth_repository.dart';
-import 'package:be_energised/screens/home/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,7 +33,10 @@ class AuthController extends StateNotifier<User?> {
   }
 
   Future<void> signOut(BuildContext context) async {
-    Navigator.of(context).popUntil(ModalRoute.withName(HomeScreen.routeName));
-    ref.read(authRepositoryProvider).signOut();
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      AuthControlHelper.routeName,
+      (route) => false,
+    );
+    await ref.read(authRepositoryProvider).signOut();
   }
 }

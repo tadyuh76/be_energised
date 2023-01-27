@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 
 class BatteryScreen extends StatelessWidget {
   static const routeName = "/battery";
-  const BatteryScreen({super.key});
+  const BatteryScreen({super.key, this.readOnly = false});
+
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -27,17 +29,20 @@ class BatteryScreen extends StatelessWidget {
               width: double.infinity,
               height: double.infinity,
               child: Column(
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     "My Battery",
                     style: TextStyle(
                       fontSize: 32,
                       color: Palette.lightGrey,
                     ),
                   ),
-                  SizedBox(height: Const.defaultPadding),
-                  BatteryWidget(),
-                  SizedBox(height: 30),
+                  const SizedBox(height: Const.defaultPadding),
+                  IgnorePointer(
+                    ignoring: readOnly,
+                    child: const BatteryWidget(),
+                  ),
+                  const SizedBox(height: 30),
                 ],
               ),
             ),

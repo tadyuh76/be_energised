@@ -2,7 +2,6 @@ import 'package:be_energised/constants/constants.dart';
 import 'package:be_energised/constants/palette.dart';
 import 'package:be_energised/models/activity.dart';
 import 'package:flutter/material.dart';
-import 'package:be_energised/utils/date_format.dart';
 
 class ActivityWidget extends StatelessWidget {
   final Activity activity;
@@ -36,7 +35,7 @@ class ActivityWidget extends StatelessWidget {
                 style: const TextStyle(color: Palette.lightGrey, fontSize: 16),
               ),
               Text(
-                "${activity.prevPercentage}% -> ${activity.curPercentage}% - ${getTime(DateTime.parse(activity.time))} Today",
+                "${activity.prevPercentage}% -> ${activity.curPercentage}% - ${activity.time} Today",
                 style: TextStyle(
                   color: Palette.lightGrey.withOpacity(0.5),
                   fontSize: 12,

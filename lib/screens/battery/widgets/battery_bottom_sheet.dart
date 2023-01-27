@@ -1,4 +1,3 @@
-import 'package:be_energised/constants/activities.dart';
 import 'package:be_energised/constants/constants.dart';
 import 'package:be_energised/constants/palette.dart';
 import 'package:be_energised/controllers/activity_list_controller.dart';

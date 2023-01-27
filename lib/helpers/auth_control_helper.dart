@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AuthControlHelper extends ConsumerWidget {
+  static const routeName = "/auth";
   const AuthControlHelper({super.key});
 
   @override

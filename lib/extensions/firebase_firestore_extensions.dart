@@ -6,13 +6,17 @@ extension FirebaseFirestoreX on FirebaseFirestore {
   }
 
   CollectionReference activityListRef(String uid, String today) {
-    return collection("batteries")
-        .doc(uid)
-        .collection("activityLists")
-        .doc(today)
-        .collection("activities");
+    return collection("batteries").doc(uid).collection(today);
+  }
+
+  // Query friendsBatteriesQuery(String uid) {
+  //   return collection("batteries").where("friends", arrayContains: uid);
+  // }
+
+  Query<Map<String, dynamic>> friendsBatteriesQuery(String uid) {
+    return collection("batteries").where("uid", isNotEqualTo: uid);
   }
 }
 // users/{uid}
 // batteries/{uid}
-// batteries/{uid}/activityLists/{day}/activities/{activityID}
+// batteries/{uid}/{day}/{activityID}

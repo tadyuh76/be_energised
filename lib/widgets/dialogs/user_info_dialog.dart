@@ -17,10 +17,6 @@ class UserInfoDialog extends StatelessWidget {
     );
   }
 
-  Future<void> onLogOut(BuildContext context, Ref ref, [mounted = true]) async {
-    ;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Align(

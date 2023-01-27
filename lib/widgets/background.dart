@@ -15,7 +15,10 @@ class Background extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: child,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 500),
+          child: child,
+        ),
       ),
     );
   }

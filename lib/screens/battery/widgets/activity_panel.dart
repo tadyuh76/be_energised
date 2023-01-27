@@ -2,6 +2,8 @@ import 'package:be_energised/constants/constants.dart';
 import 'package:be_energised/constants/palette.dart';
 import 'package:be_energised/controllers/battery_controller.dart';
 import 'package:be_energised/models/activity.dart';
+import 'package:be_energised/utils/date_format.dart';
+import 'package:be_energised/utils/show_snack_bar.dart';
 import 'package:be_energised/widgets/dialogs/activity_picker_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,15 +42,22 @@ class _ActivityPanelState extends State<ActivityPanel> {
     final prevPercentage =
         ref.read(batteryControllerProvider).value!.percentage;
 
+    if (curPercentage >= prevPercentage) {
+      showSnackBar(
+        context,
+        "How can you charge your energy by $name ? Make sure your new energy is smaller than your current energy!",
+      );
+      return;
+    }
     //TODO: validate input percentage
 
     final activity = Activity(
-      date: DateTime.now().toString(),
+      date: getDate(DateTime.now()),
+      time: getTime(DateTime.now()),
       name: name,
       icon: activityIcon,
       prevPercentage: prevPercentage,
       curPercentage: curPercentage,
-      time: DateTime.now().toString(),
     );
 
     await ref.read(batteryControllerProvider.notifier).createActivity(activity);

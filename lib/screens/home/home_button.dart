@@ -1,8 +1,13 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:be_energised/constants/palette.dart';
+import 'package:be_energised/controllers/activity_list_controller.dart';
+import 'package:be_energised/controllers/battery_controller.dart';
+import 'package:be_energised/helpers/saved_activity_list_provider.dart';
+import 'package:be_energised/helpers/saved_battery_provider.dart';
 import "package:flutter/material.dart";
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeButton extends StatelessWidget {
+class HomeButton extends ConsumerWidget {
   const HomeButton({
     super.key,
     required this.onTap,
@@ -13,10 +18,21 @@ class HomeButton extends StatelessWidget {
   final String iconName;
   final String text;
 
+  void _onTap(WidgetRef ref) {
+    if (iconName == "battery") {
+      ref.read(batteryControllerProvider.notifier).refresh();
+      ref.read(activityListControllerProvider.notifier).refresh();
+
+      print(ref.read(savedBatteryProvider));
+      print(ref.read(savedActivityListProvider));
+    }
+    onTap();
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => _onTap(ref),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
