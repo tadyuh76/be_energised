@@ -41,8 +41,6 @@ class ActivityController extends StateNotifier<AsyncValue<List<Activity>>> {
 
   void refresh() {
     final savedList = ref.read(savedActivityListProvider);
-    if (savedList.isEmpty) return;
-
     state = AsyncData(savedList);
   }
 }
